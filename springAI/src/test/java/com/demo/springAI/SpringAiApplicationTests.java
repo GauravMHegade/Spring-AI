@@ -1,4 +1,4 @@
-package com.demo.springAI;
+package com.demo.SpringAI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
