@@ -1,6 +1,8 @@
 package com.demo.SpringAI.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,14 @@ public class ChatController {
 //        this.chatClient = chatClientBuilder.build();
 //    }
 
+
+
+
+
+    /*
+    * Single Chat Model
+    * */
+
 //    @GetMapping
 //    public String chat(@RequestParam("message") String message){
 //        return this.chatClient.prompt(message)
@@ -32,16 +42,81 @@ public class ChatController {
 //    }
 
 
+
+
+    /*
+    * Multiple Chat Models
+    * */
+
+
+//    @GetMapping("/simple")
+//    public String simpleChat(String message){
+//        return simpleChatClient.prompt(message)
+//                .call()
+//                .content();
+//    }
+//
+//    @GetMapping("/advanced")
+//    public String advancedChat(String message){
+//        return advancedChatClient.prompt(message)
+//                .call()
+//                .content();
+//    }
+
+
+
+
+
+
+    /*
+    *
+    * Message Roles
+    * */
+
+
+
+//    @GetMapping("/simple")
+//    public String simpleChat(String message){
+//        return simpleChatClient.prompt()
+//                .system("You are a Java Backend Developer Trainer. Explain in Simple English") // instead of writing this everywhere we can use defaults while creating chatModel. Default are used to set Default Behaviour
+//                .user(message)
+//                .call()
+//                .content();
+//    }
+//
+//    @GetMapping("/advanced")
+//    public String advancedChat(String message){
+//        return advancedChatClient.prompt()
+//                .system("You are a Java Backend Developer Trainer. Explain in Simple English")
+//                .user(message)
+//                .call()
+//                .content();
+//    }
+
+
+
+
+    /*
+    *
+    * Defaults
+    * 
+    * */
+
     @GetMapping("/simple")
     public String simpleChat(String message){
-        return simpleChatClient.prompt(message)
+        return simpleChatClient.prompt()
+                // we don't need to write this behaviour in every request, because we are using Defaults
+//                .system("You are a Java Backend Developer Trainer. Explain in Simple English") // instead of writing this everywhere we can use defaults while creating chatModel. Default are used to set Default Behaviour
+                .user(message)
                 .call()
                 .content();
     }
 
     @GetMapping("/advanced")
     public String advancedChat(String message){
-        return advancedChatClient.prompt(message)
+        return advancedChatClient.prompt()
+//                .system("You are a Java Backend Developer Trainer. Explain in Simple English")
+                .user(message)
                 .call()
                 .content();
     }
