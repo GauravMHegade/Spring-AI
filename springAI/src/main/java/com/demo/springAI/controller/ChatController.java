@@ -1,15 +1,13 @@
 package com.demo.SpringAI.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/chat")
@@ -18,6 +16,7 @@ public class ChatController {
 //    private final ChatClient chatClient;
     private final ChatClient simpleChatClient;
     private final ChatClient advancedChatClient;
+
 
     @Value("classpath:/promptTemplates/userPromptTemplate.st")
     private Resource userPromptTemplate;
@@ -142,32 +141,49 @@ public class ChatController {
     * PromptTemplates
     *
     * */
-    @GetMapping("/simple/prompt-template")
-    public String simpleChat(@RequestParam String customerName, @RequestParam String customerMessage){
+//    @GetMapping("/simple/prompt-template")
+//    public String simpleChat(@RequestParam String customerName, @RequestParam String customerMessage){
+//        return simpleChatClient.prompt()
+//                .user(promptUserSpec -> promptUserSpec
+//                        .text(userPromptTemplate)
+//                        .param("customerName", customerName)
+//                        .param("customerMessage", customerMessage)
+//                )
+//                .call()
+//                .content();
+//    }
+//
+//
+//
+//        /*
+//        * Prompt Stuffing
+//        *
+//        * */
+//        @GetMapping("/simple/prompt-stuffing")
+//        public String simpleChat(@RequestParam("message") String message){
+//            return simpleChatClient.prompt()
+//                    .system(systemPromptStuffing)
+//                    .user(message)
+//                    .call()
+//                    .content();
+//        }
+
+
+
+
+    /*
+    *
+    * Advisors
+    *
+    * */
+    @GetMapping("/simple/message")
+    public String chat(@RequestParam("message") String message){
+
         return simpleChatClient.prompt()
-                .user(promptUserSpec -> promptUserSpec
-                        .text(userPromptTemplate)
-                        .param("customerName", customerName)
-                        .param("customerMessage", customerMessage)
-                )
+                .user(message)
                 .call()
                 .content();
     }
-
-
-
-        /*
-        * Prompt Stuffing
-        *
-        * */
-        @GetMapping("/simple/prompt-stuffing")
-        public String simpleChat(@RequestParam("message") String message){
-            return simpleChatClient.prompt()
-                    .system(systemPromptStuffing)
-                    .user(message)
-                    .call()
-                    .content();
-        }
 
 
 }

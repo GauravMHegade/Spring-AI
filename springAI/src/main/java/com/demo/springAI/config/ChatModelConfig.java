@@ -14,7 +14,7 @@ public class ChatModelConfig {
     @Bean("simpleChatClient")
     public ChatClient simpleChatClient(ChatModel chatModel){
         return ChatClient.builder(chatModel)
-                .defaultSystem("You are an HR assistant")
+                .defaultSystem("You are an AI assistant")
                 .defaultOptions(
                         OllamaChatOptions.builder()
                                 .temperature(0.7)
